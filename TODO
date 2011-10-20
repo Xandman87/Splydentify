@@ -15,6 +15,7 @@ train_neg.txt  => markov_neg.json  <= data =   { "a": 0.1,
 						 "ct": 0.2 }   <= json-objekt mit 20 übergangswahrscheinlichkeiten
 train_pos.txt  => markov_pos.json  <= dito
 
+habe noch folgendes angepasst....
 
 
 
