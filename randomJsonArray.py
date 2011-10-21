@@ -12,7 +12,7 @@ def randomToJson(a, b):
         # create a random number and save it in the list
         randomNum.append(random.uniform(a, b))
     
-    values = json.dumps(randomNum)
+    values = json.dumps(randomNum, ensure_ascii=False)
     
     if len(sys.argv) == 1:
         filename = str(raw_input("Bitte geben sie einen Dateinamen ein: "))
