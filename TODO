@@ -5,7 +5,6 @@ Arbeitspakete
 1. Markov-Modell-Wahrscheinlichkeiten aus Trainingsdaten extrahieren
 --------------------------------------------------------------------
 
-
 TRAININGsdaten => markov-modelle
 
 train_neg.txt  => markov_neg.json  <= data =   { "a": 0.1,
@@ -15,20 +14,16 @@ train_neg.txt  => markov_neg.json  <= data =   { "a": 0.1,
 						 "ct": 0.2 }   <= json-objekt mit 20 übergangswahrscheinlichkeiten
 train_pos.txt  => markov_pos.json  <= dito
 
-habe noch folgendes angepasst....
-
 
 
 2. berechnung der scores der positiven und negativen TESTdaten anhand der Übergangswahrscheinlichkeiten
------------------------------------------------------------------------------------------------------
-
+-------------------------------------------------------------------------------------------------------
 
 test_pos.txt => scores_pos.json   <= [ 0.1, 0.3, 0.2, ... ]  <= json array mit [anzahl sequenzen] scores
 test_neg.txt => scores_neg.json   <= [ 0.1, 0.3, 0.2, ... ]  <= json array mit [anzahl sequenzen] scores
 
 
 
-
-
 3. visualisierung in 2 histogrammen, die übereinander gelegt werden
 -------------------------------------------------------------------
+
