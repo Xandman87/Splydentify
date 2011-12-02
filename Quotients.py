@@ -53,11 +53,23 @@ class Quotients:
 
 #calculates relativ frequencys of motifs and stores them in dictionary        
     def calcQuotients(self):
-        sum = 0
-        for value in self.data.itervalues():
-            sum = sum + value
+        sumStart = 0
+        sumTransition = 0
+        
         for key in self.data.iterkeys():
-            self.data[key] = self.data[key]/sum
+            if(key == 'a' or key =='c'or key =='t'or key =='g'):
+                sumStart = sumStart + self.data[key] 
+            else:
+                sumTransition = sumTransition + self.data[key] 
+                
+                 
+        for key in self.data.iterkeys():
+            if(key == 'a' or key =='c'or key =='t'or key =='g'):
+                if(sumStart > 0.0):
+                    self.data[key] = self.data[key]/sumStart
+            else:
+                 if(sumTransition > 0.0):
+                     self.data[key] = self.data[key]/sumTransition
             
 #generates json file            
     def storeJson(self,name):
