@@ -15,7 +15,9 @@ class PlotMarkov():
         self.values2 = json.loads(g.read())
 
     def plot(self):
+        figure(0)
         hist(self.values1, 50, normed=1, facecolor='y', alpha=0.5)
+        figure(1)
         hist(self.values2, 50, normed=1, facecolor='b', alpha=0.5)
         title('Title')
         xlabel('x_label')

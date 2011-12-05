@@ -8,7 +8,7 @@ import random
 def randomToJson(a, b):
     
     randomNum = []
-    for i in range(1000):
+    for i in range(500):
         # create a random number and save it in the list
         randomNum.append(random.uniform(a, b))
     
@@ -29,6 +29,6 @@ def randomToJson(a, b):
 
     return filename
 
-filename = randomToJson(-50, 50)
+filename = randomToJson(35, 100)
 
 print "Done...\tsaved random Numbers in the file: " + filename 
