@@ -12,6 +12,5 @@ then
 fi
 
 ./plotMarkov.py train_pos.json train_neg.json
-./plotMarkov.py test_pos.json test_neg.json
 
 ./decide.py 2
