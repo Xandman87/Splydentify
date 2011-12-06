@@ -59,11 +59,11 @@ class Quotients:
 
             # v- sum of all 2-letter transitions starting with ltr
             #
-            tsum = sum(self.counts[ltr+ltr2] for ltr2 in 'acgt')
+            tsum2 = sum(self.counts[ltr+ltr2] for ltr2 in 'acgt')
 
             for ltr2 in 'acgt':
 
-                self.freqs[ltr+ltr2] = float(self.counts[ltr+ltr2]) / tsum
+                self.freqs[ltr+ltr2] = float(self.counts[ltr+ltr2]) / tsum2
 
     # save the json file
     #

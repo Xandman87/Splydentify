@@ -1,1 +1,0 @@
-splicing_data/train_neg.txt
