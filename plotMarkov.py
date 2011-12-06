@@ -15,13 +15,15 @@ class PlotMarkov():
         self.values2 = json.loads(g.read())
 
     def plot(self):
-        figure(0)
-        hist(self.values1, 50, normed=1, facecolor='y', alpha=0.5)
-        figure(1)
-        hist(self.values2, 50, normed=1, facecolor='b', alpha=0.5)
+        ax1 = subplot(111)
+        hist(self.values1, 100, facecolor='y', alpha=0.5)
+        
+        ax2 = twinx()
+        hist(self.values2, 100, facecolor='b', alpha=0.5)
         title('Title')
-        xlabel('x_label')
-        ylabel('yLabel')
+        ax1.set_ylabel('y_label1')
+        ax2.set_ylabel('y_label2')
+        ax1.set_xlabel('xLabel')
         show()
 
 if __name__ == '__main__':
