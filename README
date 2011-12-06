@@ -24,7 +24,7 @@ Der Projektordner beinhaltet folgende Dateien:
 - regen.bash.log		- Log des letzten Durchlaufs
 
 - Screenshot1.png		- Screenshot des Plots der berechneten Scores
-				   -> bestimmung des Cut-Off Wertes ->> 2 <<
+				   -> bestimmung des Cut-Off Wertes ->> 2.25 <<
 
 Bei der Auswertung des Histograms entschieden wir, den Cut-Off-Wert auf zwei zu setzen.
 

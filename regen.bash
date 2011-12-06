@@ -13,4 +13,4 @@ fi
 
 ./plotMarkov.py train_pos.json train_neg.json
 
-./decide.py 2
+./decide.py 2.25

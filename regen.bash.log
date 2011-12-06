@@ -1,10 +1,10 @@
 Log of ./regen.bash -regen 
-Tue Dec  6 17:31:39 2011
+Tue Dec  6 18:18:12 2011
 
-splice sites in pos: 1960 / 4208
+splice sites in pos: 2006 / 4208
 splice sites in neg: 0 / 89717
-specifity: 0.465779
+specifity: 0.476711
 sensivity: 1.000000
 
-Tue Dec  6 17:31:51 2011
+Tue Dec  6 18:18:23 2011
 ----------------
