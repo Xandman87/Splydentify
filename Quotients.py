@@ -54,22 +54,41 @@ class Quotients:
 #calculates relativ frequencys of motifs and stores them in dictionary        
     def calcQuotients(self):
         sumStart = 0
-        sumTransition = 0
+        sumATransition = 0
+        sumTTransition = 0
+        sumGTransition = 0
+        sumCTransition = 0
         
         for key in self.data.iterkeys():
             if(key == 'a' or key =='c'or key =='t'or key =='g'):
                 sumStart = sumStart + self.data[key] 
-            else:
-                sumTransition = sumTransition + self.data[key] 
+            elif(key == 'aa' or key =='ag'or key =='at'or key =='ac'):
+                sumATransition = sumATransition + self.data[key] 
+            elif(key == 'ta' or key =='tg'or key =='tt'or key =='tc'):
+                sumTTransition = sumTTransition + self.data[key] 
+            elif(key == 'ga' or key =='gg'or key =='gt'or key =='gc'):
+                sumGTransition = sumGTransition + self.data[key] 
+            elif(key == 'ca' or key =='cg'or key =='ct'or key =='cc'):
+                sumCTransition = sumCTransition + self.data[key] 
+            
                 
                  
         for key in self.data.iterkeys():
             if(key == 'a' or key =='c'or key =='t'or key =='g'):
                 if(sumStart > 0.0):
                     self.data[key] = self.data[key]/sumStart
-            else:
-                 if(sumTransition > 0.0):
-                     self.data[key] = self.data[key]/sumTransition
+            elif(key == 'aa' or key =='ag'or key =='at'or key =='ac'):
+                if(sumATransition > 0.0):
+                    self.data[key] = self.data[key]/sumATransition
+            elif(key == 'ta' or key =='tg'or key =='tt'or key =='tc'):
+                if(sumTTransition > 0.0):
+                    self.data[key] = self.data[key]/sumTTransition
+            elif(key == 'ga' or key =='gg'or key =='gt'or key =='gc'):
+                if(sumGTransition > 0.0):
+                    self.data[key] = self.data[key]/sumGTransition
+            elif(key == 'ca' or key =='cg'or key =='ct'or key =='cc'):
+                if(sumCTransition > 0.0):
+                    self.data[key] = self.data[key]/sumCTransition
             
 #generates json file            
     def storeJson(self,name):

@@ -16,14 +16,16 @@ class PlotMarkov():
 
     def plot(self):
         ax1 = subplot(111)
-        hist(self.values1, 100, facecolor='y', alpha=0.5)
+        hist(self.values1, 50, facecolor='y', alpha=0.5)
         
         ax2 = twinx()
-        hist(self.values2, 100, facecolor='b', alpha=0.5)
+        hist(self.values2, 50, facecolor='r', alpha=0.5)
+        
         title('Title')
         ax1.set_ylabel('y_label1')
         ax2.set_ylabel('y_label2')
         ax1.set_xlabel('xLabel')
+
         show()
 
 if __name__ == '__main__':
