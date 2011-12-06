@@ -1,0 +1,37 @@
+Splice Sites Identifikation mittels Markov-Kette 1. Ordnung
+===========================================================
+
+Der Projektordner beinhaltet folgende Dateien:
+
+- TODO				- Arbeitsaufteilung
+
+- Quotients.py			- Bestimmung der Übergangswahrscheinlichkeiten
+- markov_neg.json		- Übergangswahrscheinlichkeiten der Trainingsdatensätze
+- markov_pos.json
+
+- scorecalc.py			- Berechnung der Markov-Scores basierend auf den Trainingsdaten
+- test_neg.json			- Scores der Test- und Trainingsdaten
+- test_pos.json
+- train_neg.json
+- train_pos.json
+
+- plotMarkov.py			- Ausgabe des Histograms der Scores der Trainings-Daten
+
+- decide.py			- Entscheid ob sequenz == splice-site durch Vergleich
+      				  der Scores mit dem Cut-Off Wert und Berechnung der Spezi- und Sensitivität
+
+- regen.bash			- Skript zur durchführung aller Einzelschritte
+- regen.bash.log		- Log des letzten Durchlaufs
+
+- Screenshot-Figure 1.png	- Screenshot des Plots der berechneten Scores
+				   -> bestimmung des Cut-Off Wertes ->> 2 <<
+
+Bei der Auswertung des Histograms entschieden wir, den Cut-Off-Wert auf zwei zu setzen.
+
+Dieser Wert führte zur maximalen Sensitivität von 1.0, d.h. es wurde keine Nicht-Splice-Site
+irrtümlich als Splice-Site erkannt.
+
+Die Spezifität (0.47) ist jedoch nicht optimal.
+
+Mittels einem Argument kenn der Cut-Off Wert beim Aufruf von decide.py variiert und die Auswikungen
+auf Sensitivität und Spezifität beobachtet werden.
