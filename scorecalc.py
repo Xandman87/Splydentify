@@ -14,6 +14,7 @@ usage: scorecalc.py frequencies.json data.txt
   the result is printed on standard output
 
 """
+from math import log
 
 def score(seq, freqs):
     score = 1
@@ -21,7 +22,8 @@ def score(seq, freqs):
     for letter in seq:
         score *= freqs[lastletter+letter]
         lastletter=letter
-    return score
+    score /= 0.25**len(seq)
+    return log(score)/log(2)
 
 def main(frequencies, data):
     import json

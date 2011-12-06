@@ -1,117 +1,82 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/python
+
+# -*- encoding: utf-8 -*-
+
 """
 Created on Thu Dec 01 11:48:00 2011
 
 @author: Xandman-mini
 """
+
 import json
+
 class Quotients:
-# dictionary carrying quotients   
-    data = {'aa' : 0.0,'ac' : 0.0,'ag' : 0.0,'at' : 0.0,
-            'ta' : 0.0,'tc' : 0.0,'tg' : 0.0,'tt' : 0.0,
-            'ga' : 0.0,'gc' : 0.0,'gg' : 0.0,'gt' : 0.0,
-            'ca' : 0.0,'cc' : 0.0,'cg' : 0.0,'ct' : 0.0,
-            'a' : 0.0,'t' : 0.0,'g' : 0.0, 'c' : 0.0}
 
-# Makes an json-file holding relativ frequencys
-    def makeJson(self,file, name):
-        line = file.readline()
-        while(line!= ""):
+    # dictionaries carrying counts and frequencies
+    counts = {}
+    freqs = {}
+
+    # init a Quotients
+    #
+    def __init__(self, name):
+        self.name = name
+        for ltr in 'acgt':
+            self.counts[ltr] = 0
+            for ltr2 in 'atgc':
+                self.counts[ltr+ltr2] = 0
+
+    # Based on the data found in file,
+    # create a json-file holding relativ frequencies
+    #
+    def makeJson(self, file):
+        for line in file:
             if(line[0] != '>'):
-                self.count(line)
-            line = file.readline()      
+                self.count(line.strip(' \t\r\n'))
         self.calcQuotients()
-        self.storeJson(name)
+        self.storeJson()
             
- #counts occuracies of motifs            
-    def count (self,line):
-        if(line[0] == 'a'):
-            self.data['a'] = self.data['a'] + 1.0
-        elif(line[0 == 't']):
-            self.data['t'] = self.data['t'] + 1.0
-        elif(line[0 == 'g']):
-            self.data['g'] = self.data['g'] + 1.0
-        elif(line[0 == 'c']):
-            self.data['c'] = self.data['c'] + 1.0
-            
-        self.data['aa'] = self.data['aa'] + float(line.count('aa'))
-        self.data['ac'] = self.data['ac'] + float(line.count('ac'))
-        self.data['ag'] = self.data['ag'] + float(line.count('ag'))
-        self.data['at'] = self.data['at'] + float(line.count('at'))
-        self.data['ta'] = self.data['ta'] + float(line.count('ta'))
-        self.data['tc'] = self.data['tc'] + float(line.count('tc'))
-        self.data['tg'] = self.data['tg'] + float(line.count('tg'))
-        self.data['tt'] = self.data['tt'] + float(line.count('tt'))
-        self.data['ga'] = self.data['ga'] + float(line.count('ga'))
-        self.data['gc'] = self.data['gc'] + float(line.count('gc'))
-        self.data['gg'] = self.data['gg'] + float(line.count('gg'))
-        self.data['gt'] = self.data['gt'] + float(line.count('gt'))
-        self.data['ca'] = self.data['ca'] + float(line.count('ca'))
-        self.data['cc'] = self.data['cc'] + float(line.count('cc'))
-        self.data['cg'] = self.data['cg'] + float(line.count('cg'))
-        self.data['ct'] = self.data['ct'] + float(line.count('ct'))
+    # counts occurences of motifs
+    #
+    def count(self, line):
+        last = ''
+        for ltr in line:
+            self.counts[last+ltr] += 1
+            last = ltr
 
-#calculates relativ frequencys of motifs and stores them in dictionary        
+    # calculates relativ frequencys of motifs and stores them in dictionary        
+    #
     def calcQuotients(self):
-        sumStart = 0
-        sumATransition = 0
-        sumTTransition = 0
-        sumGTransition = 0
-        sumCTransition = 0
-        
-        for key in self.data.iterkeys():
-            if(key == 'a' or key =='c'or key =='t'or key =='g'):
-                sumStart = sumStart + self.data[key] 
-            elif(key == 'aa' or key =='ag'or key =='at'or key =='ac'):
-                sumATransition = sumATransition + self.data[key] 
-            elif(key == 'ta' or key =='tg'or key =='tt'or key =='tc'):
-                sumTTransition = sumTTransition + self.data[key] 
-            elif(key == 'ga' or key =='gg'or key =='gt'or key =='gc'):
-                sumGTransition = sumGTransition + self.data[key] 
-            elif(key == 'ca' or key =='cg'or key =='ct'or key =='cc'):
-                sumCTransition = sumCTransition + self.data[key] 
-            
-                
-                 
-        for key in self.data.iterkeys():
-            if(key == 'a' or key =='c'or key =='t'or key =='g'):
-                if(sumStart > 0.0):
-                    self.data[key] = self.data[key]/sumStart
-            elif(key == 'aa' or key =='ag'or key =='at'or key =='ac'):
-                if(sumATransition > 0.0):
-                    self.data[key] = self.data[key]/sumATransition
-            elif(key == 'ta' or key =='tg'or key =='tt'or key =='tc'):
-                if(sumTTransition > 0.0):
-                    self.data[key] = self.data[key]/sumTTransition
-            elif(key == 'ga' or key =='gg'or key =='gt'or key =='gc'):
-                if(sumGTransition > 0.0):
-                    self.data[key] = self.data[key]/sumGTransition
-            elif(key == 'ca' or key =='cg'or key =='ct'or key =='cc'):
-                if(sumCTransition > 0.0):
-                    self.data[key] = self.data[key]/sumCTransition
-            
-#generates json file            
-    def storeJson(self,name):
-        file = open(name,'w')
-        content = json.dumps(self.data, ensure_ascii=False)
-        file.write(content)
-        file.close
-        for key in self.data.iterkeys():
-            self.data[key] = 0.0
 
-#open training files        
-pos = open('train_pos.txt', 'r')  
-neg = open('train_neg.txt', 'r')       
-        
-quotient = Quotients()    
-quotient.makeJson(pos, 'markov_pos.json') 
-quotient.makeJson(neg,'markov_neg.json') 
- 
-        
-    
-            
-        
-            
-        
-        
-    
+        # tsum : transition class (count) sum
+        #
+        # v- sum of all one-letter transitions
+        #
+        tsum = sum(self.counts[ltr] for ltr in 'acgt')
+
+        for ltr in 'acgt':
+
+            self.freqs[ltr] = float(self.counts[ltr]) / tsum
+
+            # v- sum of all 2-letter transitions starting with ltr
+            #
+            tsum = sum(self.counts[ltr+ltr2] for ltr2 in 'acgt')
+
+            for ltr2 in 'acgt':
+
+                self.freqs[ltr+ltr2] = float(self.counts[ltr+ltr2]) / tsum
+
+    # save the json file
+    #
+    def storeJson(self):
+        json.dump(self.freqs, open(self.name,'w'))
+
+if __name__ == "__main__":
+
+    # open training files
+    #
+    pos = open('train_pos.txt', 'r')  
+    neg = open('train_neg.txt', 'r')       
+
+    # create Quotients and save frequencies       
+    Quotients('markov_pos.json').makeJson(pos)
+    Quotients('markov_neg.json').makeJson(neg)
