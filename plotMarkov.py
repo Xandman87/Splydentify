@@ -20,8 +20,8 @@ class PlotMarkov():
     def plot(self):
         
         ax = subplot(1,1,1)
-
-        for vals, label, color in (self.values1, "pos", 'r'), (self.values2, "neg", 'b'):
+        
+        for vals, label, color, count in (self.values1, "pos", 'r', 0), (self.values2, "neg", 'b', 1):
 
             args = {
                 "label"       : label,
@@ -32,7 +32,9 @@ class PlotMarkov():
 #               "log"         : True,
 #				"histtype"    : "step",
             }
-
+          
+            if count == 1:
+                ax.twinx()
             hist(vals, **args)
 
         legend()
