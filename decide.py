@@ -1,26 +1,60 @@
 #!/usr/bin/python
 
-import json
+import sys, math, json
+
+def try_cutoff(cutoff, show=False):
+
+    cut_off = float(cutoff)
+
+    pos = json.load(open("scores_pos.json"))
+    neg = json.load(open("scores_neg.json"))
+
+    TP, npos = len(filter(lambda v: v >= cut_off, pos)), len(pos)
+    FP, nneg = len(filter(lambda v: v >= cut_off, neg)), len(neg)
+
+    FN = npos - TP
+    TN = nneg - FP
+
+    denom = (TP + FP) * ( TP + FN ) * ( TN + FP ) * ( TN + FN )
+
+    if denom == 0:
+        denom = 1
+
+    mcc = float( TP * TN - FP * FN ) / math.sqrt( denom )
+
+    if show:
+        print "splice sites in pos: %d / %d" % (TP, npos)
+        print "splice sites in neg: %d / %d" % (FP, nneg)
+
+        sensivity = float(TP) / (TP + FN)
+
+        specifity = float(TN) / (TN + FP)
+
+        print "specifity: %f\nsensivity: %f" % (sensivity, specifity)
 
 
+        print "Matthews correlation coefficient:", mcc
 
-import sys
-
-co = float(sys.argv[1])
-
+    return mcc
 
 
-pos = json.load(open("test_pos.json"))
-neg = json.load(open("test_neg.json"))
+def decide():
+    mccs = {}
 
-nposplice, npos = len(filter(lambda v: v >= co, pos)), len(pos)
-nnegsplice, nneg = len(filter(lambda v: v >= co, neg)), len(neg)
+    for i in range(100):
 
-print "splice sites in pos: %d / %d" % (nposplice, npos)
-print "splice sites in neg: %d / %d" % (nnegsplice, nneg)
+       co = -6 + i * (12. / 50)
 
-sensivity = float(nposplice) / (nposplice + (npos - nposplice))
+       mccs[co] = try_cutoff(co)
 
-specifity = float(nneg - nnegsplice) / ((nneg - nnegsplice) + nnegsplice)
+    mx = max(mccs.values())
+    maxmccs = filter(lambda keyvalue: keyvalue[1] == mx, mccs.iteritems())
 
-print "specifity: %f\nsensivity: %f" % (sensivity, specifity)
+    for key, val in maxmccs:
+
+        try_cutoff(key, show=True)
+
+
+if __name__ == "__main__":
+
+    decide()

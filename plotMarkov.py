@@ -18,35 +18,41 @@ class PlotMarkov():
         self.values2 = json.loads(g.read())
 
     def plot(self):
-        
-        ax = subplot(1,1,1)
-        
-        for vals, label, color, count in (self.values1, "pos", 'r', 0), (self.values2, "neg", 'b', 1):
+
+#        labels = [][]
+
+        for vals, ax_f, label, color in (
+			(self.values1, lambda: subplot(1,1,1), "pos", 'r'),
+			(self.values2, lambda: twinx()       , "neg", 'b')):
 
             args = {
                 "label"       : label,
-				"facecolor"   : color,
-				"bins"        : 100,
+		"facecolor"   : color,
+		"bins"        : 100,
                 "range"       : (-7,7),
-				"alpha"       : 0.5,
+		"alpha"       : 0.5,
 #               "log"         : True,
-#				"histtype"    : "step",
+#		"histtype"    : "step",
             }
-          
-            if count == 1:
-                ax.twinx()
+
+            ax = ax_f()
+ 
+#            labels[ hist(vals, **args) ] = label
             hist(vals, **args)
 
-        legend()
+            ax.legend(loc=0)
+
+#        legend(labels.keys(), labels.values())
+#        legend()
 
 #        title('Markov Chain Scores')
 
-        title(self.filename1 + " | " + self.filename2)
+#        title(self.filename1 + " | " + self.filename2)
 
-        ax.set_ylim(0, 10000)
+#        ax.set_ylim(0, 10000)
 
-        ax.set_xlabel('score')
-        ax.set_ylabel('count')
+#        ax.set_xlabel('score')
+#        ax.set_ylabel('count')
 
         show()
 

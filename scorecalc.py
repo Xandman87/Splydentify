@@ -16,26 +16,26 @@ usage: scorecalc.py frequencies.json data.txt
 """
 from math import log
 
-def score(seq, freqs):
+def score(pos_probs, neg_probs, seq):
     score = 1
     lastletter = ""
     for letter in seq:
-        score *= freqs[lastletter+letter]
+        score *= pos_probs[lastletter+letter]/neg_probs[lastletter+letter]
         lastletter=letter
-    score /= 0.25**len(seq)
-    return log(score)/log(2)
+    return log(score, 2)
 
-def main(frequencies, data):
+def main(pos_probs, neg_probs, data):
     import json
-    freqs = json.load(open(frequencies))
+    pos_probs = json.load(open(pos_probs))
+    neg_probs = json.load(open(neg_probs))
     scores = []
     from Bio import SeqIO
     for seq in SeqIO.parse(data, "fasta"):
-        scores.append(score(seq, freqs))
+        scores.append(score(pos_probs, neg_probs, seq))
     from sys import stdout
     json.dump(scores, stdout)
 
 if __name__ == "__main__":
     from sys import argv
-    main(argv[1], argv[2])
+    main(argv[1], argv[2], argv[3])
 
