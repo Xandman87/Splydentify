@@ -14,7 +14,7 @@ Der Projektordner beinhaltet folgende Dateien:
 - scores_pos.json
 
 - plotMarkov.py			- Ausgabe der Histogramme der Testdaten
-- Screenshot1.png
+- Screenshot.png
 
 - decide.py			- Bestimmung des optimalen Cut-Off Werts durch Berechnung
 				  und maximierung des Matthewschen Korrelations-Koeffizienten
