@@ -19,9 +19,9 @@ from math import log
 def score(pos_probs, neg_probs, seq):
     score = 1
     lastletter = ""
-    for letter in seq:
-        score *= pos_probs[lastletter+letter]/neg_probs[lastletter+letter]
-        lastletter=letter
+    for idx, letter in enumerate(seq):
+        score *= pos_probs[idx][lastletter+letter] / neg_probs[idx][lastletter+letter]
+        lastletter = letter
     return log(score, 2)
 
 def main(pos_probs, neg_probs, data):

@@ -13,17 +13,27 @@ import json
 class Quotients:
 
     # dictionaries carrying counts and frequencies
-    counts = {}
-    freqs = {}
+    counts = []
+    freqs = []
+
+    seq_len = 7
 
     # init a Quotients
     #
     def __init__(self, name):
         self.name = name
+
+        new_dict = {}
         for ltr in 'acgt':
-            self.counts[ltr] = 0
-            for ltr2 in 'atgc':
-                self.counts[ltr+ltr2] = 0
+            new_dict[ltr] = 1
+        self.counts.insert(0, new_dict)
+
+        for idx in range(1, self.seq_len):
+            new_dict = {}
+            for ltr in 'acgt':
+                for ltr2 in 'atgc':
+                    new_dict[ltr+ltr2] = 1
+            self.counts.insert(idx, new_dict)
 
     # Based on the data found in file,
     # create a json-file holding relativ frequencies
@@ -39,32 +49,25 @@ class Quotients:
     #
     def count(self, line):
         last = ''
-        for ltr in line:
-            self.counts[last+ltr] += 1
+        for idx, ltr in enumerate(line):
+            self.counts[idx][last+ltr] += 1
             last = ltr
 
     # calculates relativ frequencys of motifs and stores them in dictionary        
     #
     def calcQuotients(self):
 
-        # tsum : transition class (count) sum
-        #
-        # v- sum of all one-letter transitions
-        #
-        tsum = sum(self.counts[ltr] for ltr in 'acgt')
 
-        for ltr in 'acgt':
+        for idx in range(self.seq_len):
 
-            self.freqs[ltr] = float(self.counts[ltr]) / tsum
+            tsum = sum(self.counts[idx].values())
 
-            # v- sum of all 2-letter transitions starting with ltr
-            #
-            tsum2 = sum(self.counts[ltr+ltr2] for ltr2 in 'acgt')
+            new_freqs = {}
+            for key in self.counts[idx]:
+                new_freqs[key] = float(self.counts[idx][key]) / tsum
 
-            for ltr2 in 'acgt':
-
-                self.freqs[ltr+ltr2] = float(self.counts[ltr+ltr2]) / tsum2
-
+            self.freqs.insert(idx, new_freqs)
+            
     # save the json file
     #
     def storeJson(self):

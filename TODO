@@ -7,11 +7,24 @@ Arbeitspakete
 
 TRAININGsdaten => markov-modelle
 
-train_neg.txt  => markov_neg.json  <= data =   { "a": 0.1,
-						 "ag": 0.3,
-						 "tg": 0.3,
-						  .......
-						 "ct": 0.2 }   <= json-objekt mit 20 übergangswahrscheinlichkeiten
+train_neg.txt  => markov_neg.json  <= data =  [ { "a": 0.1,
+                                                  "c": 0.2,
+                                                  "g": 0.3,
+                                                  "t": 0.4 },
+                                                { "ag": 0.3,
+						  "tg": 0.3,
+						   13 more...
+						  "ct": 0.2 },
+                                                   5 more... ]  <= json-objekt mit 20 übergangswahrscheinlichkeiten
+train_neg.txt  => markov_neg.json  <= data =  [ { "a": 0.1,
+                                                  "c": 0.2,
+                                                  "g": 0.3,
+                                                  "t": 0.4 },
+                                                { "ag": 0.3,
+						  "tg": 0.3,
+						   13 more...
+						  "ct": 0.2 },
+                                                   5 more... ]  <= json-objekt mit 20 übergangswahrscheinlichkeiten
 train_pos.txt  => markov_pos.json  <= dito
 
 

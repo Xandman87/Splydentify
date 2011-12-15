@@ -20,7 +20,7 @@ class PlotMarkov():
             ax = ax_fun()
             ax.hist(vals,
 		bins        = 100,            # number of bins
-                range       = (-7,7),         # x-axis range (important! so all bins have the same width)
+#                range       = (-7,7),         # x-axis range (important! so all bins have the same width)
                 label       = label,          # legend label
 		facecolor   = color,          # bins color
 		alpha       = 0.5,            # bins alpha value (semi-transparent to see hidden/overlapping bins)
